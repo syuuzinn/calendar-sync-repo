@@ -19,8 +19,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Inject Google credentials
-        run: echo "${{ secrets.GOOGLE_CREDENTIALS }}" > credentials.json
-
       - name: Run task sync
         run: npm run sync
