@@ -1,6 +1,10 @@
 const { google } = require("googleapis");
 const fs = require("fs");
 
+// ✅ Secrets（Base64文字列）をcredentials.jsonとして書き出す
+const base64 = process.env.GOOGLE_CREDENTIALS;
+fs.writeFileSync("credentials.json", Buffer.from(base64, "base64").toString("utf-8"));
+
 async function main() {
   const auth = new google.auth.GoogleAuth({
     keyFile: "credentials.json",
