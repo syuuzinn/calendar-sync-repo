@@ -1,2 +1,6 @@
-- [ ] Googleカレンダー同期テスト
+- [ ] 2025-05-15 13:00 Lunch with Sato
+- [ ] 2025-05-16 09:00 Team meeting
+
+
+
 
