@@ -20,4 +20,6 @@ jobs:
         run: npm install
 
       - name: Run task sync
+        env:
+         GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: npm run sync
