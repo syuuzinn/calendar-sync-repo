@@ -1,0 +1,23 @@
+name: Sync Tasks to Google Calendar
+
+on:
+  push:
+    paths:
+      - 'notes/**'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run task sync
+        run: npm run sync

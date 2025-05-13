@@ -1,0 +1,10 @@
+{
+  "name": "calendar-sync",
+  "version": "1.0.0",
+  "scripts": {
+    "sync": "node tasks-parser.js && node calendar-sync.js"
+  },
+  "dependencies": {
+    "googleapis": "^105.0.0"
+  }
+}
