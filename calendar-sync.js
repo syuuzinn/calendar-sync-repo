@@ -17,13 +17,13 @@ async function main() {
   const tasks = JSON.parse(fs.readFileSync("tasks.json", "utf8"));
   for (const task of tasks) {
     await calendar.events.insert({
-      calendarId: "primary",
-      requestBody: {
-        summary: task.summary,
-        start: { dateTime: task.startTime },
-        end: { dateTime: task.endTime }
-      }
-    });
+     calendarId: "yourname@gmail.com", // ← 自分のカレンダーIDを明示
+     requestBody: {
+      summary: task.summary,
+      start: { dateTime: task.startTime },
+      end: { dateTime: task.endTime }
+  }
+});
   }
 
   console.log("Tasks synced to Google Calendar.");
