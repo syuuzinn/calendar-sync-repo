@@ -5,25 +5,24 @@ const notesDir = "./notes";
 const tasks = [];
 
 fs.readdirSync(notesDir).forEach(file => {
-  const filePath = path.join(notesDir, file);
-
-  // ディレクトリはスキップ
-  if (fs.lstatSync(filePath).isDirectory()) return;
-
-  const content = fs.readFileSync(filePath, "utf8");
-
-  // "- [ ] " で始まる行を抽出
+  const content = fs.readFileSync(path.join(notesDir, file), "utf8");
   const matches = content.match(/- \[ \] .+/g);
   if (matches) {
     matches.forEach(task => {
-      tasks.push({
-        summary: task.replace("- [ ] ", ""),
-        startTime: new Date().toISOString(),
-        endTime: new Date(Date.now() + 3600000).toISOString()
-      });
+      // 例: - [ ] 2025-05-25 10:00 Lunch with Sato
+      const match = task.match(/- \[ \] (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) (.+)/);
+      if (match) {
+        const [, date, time, summary] = match;
+        const start = new Date(`${date}T${time}:00`);
+        const end = new Date(start.getTime() + 60 * 60 * 1000); // 1時間後
+        tasks.push({
+          summary: summary.trim(),
+          startTime: start.toISOString(),
+          endTime: end.toISOString()
+        });
+      }
     });
   }
 });
 
-// tasks.json に書き出し
 fs.writeFileSync("tasks.json", JSON.stringify(tasks, null, 2));
