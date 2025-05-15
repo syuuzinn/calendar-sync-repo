@@ -20,11 +20,16 @@ async function main() {
      calendarId: "syuuzinn12@gmail.com", // ← 自分のカレンダーIDを明示
      requestBody: {
       summary: task.summary,
-      start: { dateTime: task.startTime },
-      end: { dateTime: task.endTime }
-  }
-});
-  }
+      start: {
+        dateTime: task.startTime,
+        timeZone: "Asia/Tokyo" // ← ここを追加！
+      },
+      end: {
+        dateTime: task.endTime,
+        timeZone: "Asia/Tokyo" // ← ここも追加！
+      }
+    }
+  });
 
   console.log("Tasks synced to Google Calendar.");
 }
