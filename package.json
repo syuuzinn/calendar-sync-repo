@@ -5,6 +5,7 @@
     "sync": "node tasks-parser.js && node calendar-sync.js"
   },
   "dependencies": {
-    "googleapis": "^105.0.0"
+    "googleapis": "^105.0.0",
+    "moment-timezone": "^0.5.48"
   }
 }
