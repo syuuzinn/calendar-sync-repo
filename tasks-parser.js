@@ -14,17 +14,19 @@ fs.readdirSync(notesDir).forEach(file => {
 
   if (matches) {
     matches.forEach(task => {
-      // 例: - [ ] 2025-05-25 13:00 Lunch with Sato
-      const match = task.match(/- \[ \] (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) (.+)/);
+      // 例: - [ ] 2025-05-26 15:00-17:00 Project meeting
+      const match = task.match(/- \[ \] (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2})(?:-(\d{2}:\d{2}))? (.+)/);
       if (match) {
-        const [, date, time, summary] = match;
+        const [, date, startTimeStr, endTimeStr, summary] = match;
 
-        const start = moment.tz(`${date} ${time}`, "YYYY-MM-DD HH:mm", "Asia/Tokyo");
-        const end = start.clone().add(1, "hour");
+        const start = moment.tz(`${date} ${startTimeStr}`, "YYYY-MM-DD HH:mm", "Asia/Tokyo");
+        const end = endTimeStr
+          ? moment.tz(`${date} ${endTimeStr}`, "YYYY-MM-DD HH:mm", "Asia/Tokyo")
+          : start.clone().add(1, "hour");
 
         tasks.push({
           summary: summary.trim(),
-          startTime: start.toISOString(),  // ← JSTの13:00を正しくUTCで表現
+          startTime: start.toISOString(),
           endTime: end.toISOString()
         });
       }
