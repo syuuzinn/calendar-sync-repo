@@ -1,10 +1,3 @@
-const { google } = require("googleapis");
-const fs = require("fs");
-
-// ✅ GitHub SecretsからBase64文字列を取得しcredentials.jsonに復元
-const base64 = process.env.GOOGLE_CREDENTIALS;
-fs.writeFileSync("credentials.json", Buffer.from(base64, "base64").toString("utf-8"));
-
 async function main() {
   const auth = new google.auth.GoogleAuth({
     keyFile: "credentials.json",
@@ -17,21 +10,23 @@ async function main() {
   const tasks = JSON.parse(fs.readFileSync("tasks.json", "utf8"));
   for (const task of tasks) {
     await calendar.events.insert({
-     calendarId: "syuuzinn12@gmail.com", // ← 自分のカレンダーIDを明示
-     requestBody: {
-      summary: task.summary,
-      start: {
-        dateTime: task.startTime,
-        timeZone: "Asia/Tokyo" // ← ここを追加！
-      },
-      end: {
-        dateTime: task.endTime,
-        timeZone: "Asia/Tokyo" // ← ここも追加！
+      calendarId: "your-calendar-id@gmail.com",
+      requestBody: {
+        summary: task.summary,
+        start: {
+          dateTime: task.startTime,
+          timeZone: "Asia/Tokyo"
+        },
+        end: {
+          dateTime: task.endTime,
+          timeZone: "Asia/Tokyo"
+        }
       }
-    }
-  });
+    });
+  }
 
   console.log("Tasks synced to Google Calendar.");
 }
 
+// ✅ 最後に必ず必要！
 main();
