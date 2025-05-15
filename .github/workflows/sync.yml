@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'notes/**'
+  schedule:
+    - cron: '0 22 * * *'  # 毎日12:00 JST（= 3:00 UTC）
 
 jobs:
   sync:
