@@ -5,8 +5,14 @@ const notesDir = "./notes";
 const tasks = [];
 
 fs.readdirSync(notesDir).forEach(file => {
-  const content = fs.readFileSync(path.join(notesDir, file), "utf8");
+  const filePath = path.join(notesDir, file);
+
+  // 🔽 ディレクトリではなく、ファイルだけを対象にする
+  if (!fs.lstatSync(filePath).isFile()) return;
+
+  const content = fs.readFileSync(filePath, "utf8");
   const matches = content.match(/- \[ \] .+/g);
+
   if (matches) {
     matches.forEach(task => {
       // 例: - [ ] 2025-05-25 10:00 Lunch with Sato
