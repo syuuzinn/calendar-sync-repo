@@ -1,11 +1,10 @@
 name: Sync Tasks to Google Calendar
 
-on:
-  push:
-    paths:
-      - 'notes/**'
-  schedule:
-    - cron: '0 22 * * *'  # 毎日12:00 JST（= 3:00 UTC）
+#  push:
+#    paths:
+#      - 'notes/**'
+#  schedule:
+#    - cron: '0 22 * * *'  # 毎日7:00 JST（= 3:00 UTC）
 
 jobs:
   sync:
