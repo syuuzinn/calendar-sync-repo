@@ -25,3 +25,5 @@ jobs:
         run: npm run sync
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+          
